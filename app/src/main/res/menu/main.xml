@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/itemFavorite"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        app:showAsAction="always"
+        android:title="Favorite" />
+    <item
+        android:id="@+id/itemShare"
+        android:icon="@drawable/ic_baseline_share_24"
+        app:showAsAction="always"
+        android:title="Share" />
+    <item
+        android:id="@+id/itemMore"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        app:showAsAction="always"
+        android:title="More" >
+        <menu >
+            <item
+                android:id="@+id/itemAdd"
+                app:showAsAction="ifRoom"
+                android:title="Agregar" />
+            <item
+                android:id="@+id/itemMap"
+                app:showAsAction="ifRoom"
+                android:title="Mapa" />
+        </menu>
+    </item>
+</menu>

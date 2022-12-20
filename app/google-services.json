@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "993262785513",
+    "project_id": "tiendadeportiva-fffee",
+    "storage_bucket": "tiendadeportiva-fffee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993262785513:android:712c230ca1d3af47263178",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993262785513-v605fsfmdu06dh1p17u5kshit9kkgs8d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLj0xfIenqjhSRnwNDxQ_ToM_v-UggIik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993262785513-v605fsfmdu06dh1p17u5kshit9kkgs8d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993262785513:android:ca4c3114ab8feba6263178",
+        "android_client_info": {
+          "package_name": "com.example.tiendadeportiva"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993262785513-v605fsfmdu06dh1p17u5kshit9kkgs8d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLj0xfIenqjhSRnwNDxQ_ToM_v-UggIik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993262785513-v605fsfmdu06dh1p17u5kshit9kkgs8d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

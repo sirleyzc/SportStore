@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">SportStore</string>
+
+    //Strings MainActivity
+    <string name="btn_home_product">Productos</string>
+    <string name="btn_home_service">Servicios</string>
+    <string name="btn_home_branch">Sucursales</string>
+
+    //Strings ProductCatalog
+    <string name="text_title_prod_cat">Productos</string>
+
+    //Strings Product_template
+
+    //Strings ProductInfo
+    <string name="btnInfo">Volver</string>
+
+    //Strings ProductForm
+    <string name="text_title_form">Agregar Producto</string>
+    <string name="text_name_form">Nombre</string>
+    <string name="text_desc_form">Descripción</string>
+    <string name="text_price_form">Precio</string>
+    <string name="btn_form">Guardar</string>
+    <string name="title_activity_login">Login</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+    //Strings ServiceCatalog
+    <string name="text_title_serv_cat">Servicios</string>
+
+    //Strings ServiceForm
+    <string name="text_title_service_form">Agregar Servicio</string>
+    <string name="text_name_service_form">Nombre</string>
+    <string name="text_desc_service_form">Descripción</string>
+    <string name="text_price_service_form">Precio</string>
+    <string name="btn_service_form">Guardar</string>
+
+    //Strings BranchCatalog
+    <string name="text_title_branch_cat">Sucursales</string>
+
+    //Strings BranchInfo
+    <string name="btn_branch_info">Volver</string>
+
+    //Strings BranchForm
+    <string name="text_title_branch_form">Agregar Servicio</string>
+    <string name="text_name_branch_form">Nombre</string>
+    <string name="text_phone_branch_form">Teléfono</string>
+    <string name="btn_branch_form">Guardar</string>
+</resources>
