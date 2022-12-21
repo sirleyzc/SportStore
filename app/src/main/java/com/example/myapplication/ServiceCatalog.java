@@ -5,15 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.myapplication.Adapters.ServiceAdapter;
-import com.example.myapplication.DB.DBFirebase;
 import com.example.myapplication.DB.DBFirebaseService;
+import com.example.myapplication.DB.DBHelperService;
 import com.example.myapplication.Entities.Service;
+import com.example.myapplication.Services.Services;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,8 @@ public class ServiceCatalog extends AppCompatActivity {
     private ServiceAdapter serviceAdapter;
     private ArrayList<Service> arrayServices;
     private DBFirebaseService dbFirebaseService;
+    private DBHelperService dbHelper;
+    private Services services;
 
 
     @Override
@@ -29,10 +33,18 @@ public class ServiceCatalog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_catalog);
 
+        arrayServices = new ArrayList<>();
         listViewService = (ListView) findViewById(R.id.listViewService);
 
-        dbFirebaseService = new DBFirebaseService();
-        arrayServices = new ArrayList<>();
+        try {
+            dbHelper = new DBHelperService(this);
+            dbFirebaseService = new DBFirebaseService();
+            services = new Services();
+            arrayServices = services.cursorToArray(dbHelper.getServices());
+        } catch (Exception e) {
+            Log.e("DB", e.toString());
+        }
+
         serviceAdapter = new ServiceAdapter(this, arrayServices);
 
         listViewService.setAdapter(serviceAdapter);

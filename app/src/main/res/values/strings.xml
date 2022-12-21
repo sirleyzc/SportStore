@@ -6,6 +6,15 @@
     <string name="btn_home_service">Servicios</string>
     <string name="btn_home_branch">Sucursales</string>
 
+    //Strings Login
+    <string name="btn_login">Ingresar</string>
+    <string name="btn_login_register">Registrarse</string>
+
+    //Strings SignUp
+    <string name="btn_sign_up">Registrarse</string>
+
+    //********************************Strings products******************************
+
     //Strings ProductCatalog
     <string name="text_title_prod_cat">Productos</string>
 
@@ -30,6 +39,8 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 
+    //******************************Strings Services****************************
+
     //Strings ServiceCatalog
     <string name="text_title_serv_cat">Servicios</string>
 
@@ -40,6 +51,8 @@
     <string name="text_price_service_form">Precio</string>
     <string name="btn_service_form">Guardar</string>
 
+    //*************************Strings Branch****************************
+
     //Strings BranchCatalog
     <string name="text_title_branch_cat">Sucursales</string>
 
@@ -47,8 +60,10 @@
     <string name="btn_branch_info">Volver</string>
 
     //Strings BranchForm
-    <string name="text_title_branch_form">Agregar Servicio</string>
+    <string name="text_title_branch_form">Agregar Sucursal</string>
     <string name="text_name_branch_form">Nombre</string>
     <string name="text_phone_branch_form">Teléfono</string>
-    <string name="btn_branch_form">Guardar</string>
+    <string name="btn_branch_form">Agregar</string>
+    <string name="text_latitude_branch_form">Latitud</string>
+    <string name="text_longitude_branch_form">Longitud</string>
 </resources>

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.DB.DBFirebase;
 import com.example.myapplication.Entities.Product;
 import com.example.myapplication.ProductForm;
@@ -19,28 +20,12 @@ import com.example.myapplication.R;
 
 import java.util.ArrayList;
 
-public class ProductAdapter extends BaseAdapter{
+public class ProductAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Product> arrayProducts;
 
     public ProductAdapter(Context context, ArrayList<Product> arrayProducts) {
         this.context = context;
-        this.arrayProducts = arrayProducts;
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    public ArrayList<Product> getArrayProducts() {
-        return arrayProducts;
-    }
-
-    public void setArrayProducts(ArrayList<Product> arrayProducts) {
         this.arrayProducts = arrayProducts;
     }
 
@@ -62,7 +47,7 @@ public class ProductAdapter extends BaseAdapter{
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater layoutInflater = LayoutInflater.from(this.context);
-        view = layoutInflater.inflate(R.layout.product_template, null);
+        view = layoutInflater.inflate(R.layout.product_template,null);
 
         Product product = arrayProducts.get(i);
 
@@ -70,13 +55,17 @@ public class ProductAdapter extends BaseAdapter{
         TextView textNameProd = (TextView) view.findViewById(R.id.textNameProd);
         TextView textDescriptionProd = (TextView) view.findViewById(R.id.textDescriptionProd);
         TextView textPriceProd = (TextView) view.findViewById(R.id.textPriceProd);
-        Button btnDeleteProd = (Button) view.findViewById(R.id.btnDeleteProd);
-        Button btnEditProd = (Button) view.findViewById(R.id.btnEditProd);
+        Button btnDeleteTemplate = (Button) view.findViewById(R.id.btnDeleteProd);
+        Button btnEditTemplate = (Button) view.findViewById(R.id.btnEditProd);
 
-        imgProduct.setImageResource(R.drawable.balon_futbol);
         textNameProd.setText(product.getName());
         textDescriptionProd.setText(product.getDescription());
-        textPriceProd.setText(product.getPrice());
+        textPriceProd.setText(String.valueOf(product.getPrice()));
+
+        Glide.with(context)
+                .load(product.getImage())
+                .override(500, 500)
+                .into(imgProduct);
 
         imgProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,24 +74,26 @@ public class ProductAdapter extends BaseAdapter{
                 intent.putExtra("name", product.getName());
                 intent.putExtra("description", product.getDescription());
                 intent.putExtra("price", product.getPrice());
+                intent.putExtra("image", product.getImage());
+
                 context.startActivity(intent);
             }
         });
 
-        btnDeleteProd.setOnClickListener(new View.OnClickListener() {
+        btnDeleteTemplate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DBFirebase dbFirebase = new DBFirebase();
-                dbFirebase.deleteData(product.getId());
-                Intent intent = new Intent(context, ProductCatalog.class);
+                dbFirebase.deleteProduct(product.getId());
+                Intent intent = new Intent(context.getApplicationContext(), ProductCatalog.class);
                 context.startActivity(intent);
             }
         });
 
-        btnEditProd.setOnClickListener(new View.OnClickListener() {
+        btnEditTemplate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ProductForm.class);
+                Intent intent = new Intent(context.getApplicationContext(), ProductForm.class);
                 intent.putExtra("edit", true);
                 intent.putExtra("id", product.getId());
                 intent.putExtra("name", product.getName());
@@ -112,8 +103,6 @@ public class ProductAdapter extends BaseAdapter{
                 context.startActivity(intent);
             }
         });
-
         return view;
     }
-
 }

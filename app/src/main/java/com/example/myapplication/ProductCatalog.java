@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -12,7 +13,9 @@ import android.widget.Toast;
 
 import com.example.myapplication.Adapters.ProductAdapter;
 import com.example.myapplication.DB.DBFirebase;
+import com.example.myapplication.DB.DBHelperProduct;
 import com.example.myapplication.Entities.Product;
+import com.example.myapplication.Services.ProductService;
 
 import java.util.ArrayList;
 
@@ -21,6 +24,8 @@ public class ProductCatalog extends AppCompatActivity {
     private ProductAdapter productAdapter;
     private ArrayList<Product> arrayProducts;
     private DBFirebase dbFirebase;
+    private DBHelperProduct dbHelper;
+    private ProductService productService;
 
 
     @Override
@@ -28,14 +33,22 @@ public class ProductCatalog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_catalog);
 
+        arrayProducts = new ArrayList<>();
         listViewProducts = (ListView) findViewById(R.id.listViewProduct);
 
-        dbFirebase = new DBFirebase();
-        arrayProducts = new ArrayList<>();
+        try {
+            dbHelper = new DBHelperProduct(this);
+            dbFirebase = new DBFirebase();
+            productService = new ProductService();
+            arrayProducts = productService.cursorToArray(dbHelper.getProducts());
+        } catch (Exception e) {
+            Log.e("DB", e.toString());
+        }
+
         productAdapter = new ProductAdapter(this, arrayProducts);
 
         listViewProducts.setAdapter(productAdapter);
-        dbFirebase.getData(productAdapter);
+        dbFirebase.getProducts(productAdapter, arrayProducts);
     }
 
     @Override

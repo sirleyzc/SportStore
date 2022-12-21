@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.BranchCatalog;
 import com.example.myapplication.BranchForm;
 import com.example.myapplication.BranchInfo;
@@ -76,12 +77,18 @@ public class BranchAdapter extends BaseAdapter {
         textNameBranch.setText(branch.getName());
         textPhoneBranch.setText(branch.getPhone());
 
+        Glide.with(context)
+                .load(branch.getImage())
+                .override(500, 500)
+                .into(imgBranch);
+
         imgBranch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context.getApplicationContext(), BranchInfo.class);
                 intent.putExtra("name", branch.getName());
                 intent.putExtra("phone", branch.getPhone());
+                intent.putExtra("image",branch.getImage());
                 context.startActivity(intent);
             }
         });

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -14,12 +15,16 @@ import com.example.myapplication.Adapters.BranchAdapter;
 import com.example.myapplication.Adapters.ProductAdapter;
 import com.example.myapplication.DB.DBFirebase;
 import com.example.myapplication.DB.DBFirebaseBranch;
+import com.example.myapplication.DB.DBHelperBranch;
 import com.example.myapplication.Entities.Branch;
 import com.example.myapplication.Entities.Product;
+import com.example.myapplication.Services.BranchService;
 
 import java.util.ArrayList;
 
 public class BranchCatalog extends AppCompatActivity {
+    private DBHelperBranch dbHelperBranch;
+    private BranchService branchService;
     private ListView listViewBranch;
     private BranchAdapter branchAdapter;
     private ArrayList<Branch> arrayBranch;
@@ -31,14 +36,21 @@ public class BranchCatalog extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_branch_catalog);
 
-        listViewBranch = (ListView) findViewById(R.id.listViewBranch);
-
-        dbFirebaseBranch = new DBFirebaseBranch();
         arrayBranch = new ArrayList<>();
-        branchAdapter = new BranchAdapter(this, arrayBranch);
+        listViewBranch = (ListView) findViewById(R.id.listViewBranch);
+        try {
+            dbHelperBranch = new DBHelperBranch(this);
+            dbFirebaseBranch = new DBFirebaseBranch();
+            branchService = new BranchService();
+            arrayBranch = branchService.cursorToArray(dbHelperBranch.getBranches());
 
+        }catch (Exception e){
+            Log.e("DB", e.toString());
+        }
+
+        branchAdapter = new BranchAdapter(this, arrayBranch);
         listViewBranch.setAdapter(branchAdapter);
-        dbFirebaseBranch.getData(branchAdapter);
+        dbFirebaseBranch.getData(branchAdapter, arrayBranch);
     }
 
     @Override
@@ -57,7 +69,18 @@ public class BranchCatalog extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Agregar", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.itemMap:
+                ArrayList<String> latitudes = new ArrayList<>();
+                ArrayList<String> longitudes = new ArrayList<>();
+                for(int i=0; i<arrayBranch.size(); i++){
+                    String latitude = String.valueOf(arrayBranch.get(i).getLatitude());
+                    String longitude = String.valueOf(arrayBranch.get(i).getLongitude());
+                    latitudes.add(latitude);
+                    longitudes.add(longitude);
+                }
+
                 intent = new Intent(getApplicationContext(), Maps.class);
+                intent.putStringArrayListExtra("latitudes", latitudes);
+                intent.putStringArrayListExtra("longitudes", longitudes);
                 startActivity(intent);
                 return true;
             case R.id.itemFavorite:

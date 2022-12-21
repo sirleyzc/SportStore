@@ -37,26 +37,25 @@ public class DBFirebaseBranch{
         db.collection("branches").add(bran);
     }
 
-    public void getData(BranchAdapter branchAdapter) {
+    public void getData(BranchAdapter branchAdapter, ArrayList<Branch> list) {
         db.collection("branches")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            ArrayList<Branch> list = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
                                 Branch branch = new Branch(
                                         document.getData().get("id").toString(),
                                         document.getData().get("name").toString(),
                                         document.getData().get("phone").toString(),
                                         document.getData().get("image").toString(),
-                                        document.getData().get("latitude").toString(),
-                                        document.getData().get("longitude").toString()
+                                        Double.parseDouble(document.getData().get("latitude").toString()),
+                                        Double.parseDouble(document.getData().get("longitude").toString())
                                 );
                                 list.add(branch);
                             }
-                            branchAdapter.setArrayBranch(list);
                             branchAdapter.notifyDataSetChanged();
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
@@ -88,7 +87,6 @@ public class DBFirebaseBranch{
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            ArrayList<Branch> list = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 document.getReference().update(
                                         "name", branch.getName(),

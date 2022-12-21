@@ -11,7 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myapplication.DB.DBFirebase;
+import com.bumptech.glide.Glide;
+import com.example.myapplication.DB.DBFirebaseService;
 import com.example.myapplication.Entities.Service;
 import com.example.myapplication.R;
 import com.example.myapplication.ServiceCatalog;
@@ -72,10 +73,14 @@ public class ServiceAdapter extends BaseAdapter {
         Button btnDelService = (Button) view.findViewById(R.id.btnDelService);
         Button btnEditService = (Button) view.findViewById(R.id.btnEditService);
 
-        imgService.setImageResource(R.drawable.balon_futbol);
         textNameService.setText(service.getName());
         textDescriptionService.setText(service.getDescription());
         textPriceService.setText(service.getPrice());
+
+        Glide.with(context)
+                .load(service.getImage())
+                .override(500, 500)
+                .into(imgService);
 
         imgService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,8 +96,8 @@ public class ServiceAdapter extends BaseAdapter {
         btnDelService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DBFirebase dbFirebase = new DBFirebase();
-                dbFirebase.deleteData(service.getId());
+                DBFirebaseService dbFirebaseService = new DBFirebaseService();
+                dbFirebaseService.deleteData(service.getId());
                 Intent intent = new Intent(context, ServiceCatalog.class);
                 context.startActivity(intent);
             }

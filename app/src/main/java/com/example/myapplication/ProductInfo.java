@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 public class ProductInfo extends AppCompatActivity {
     private TextView textNameInfo, textDescriptionInfo, textPriceInfo;
     private ImageView imgInfo;
@@ -29,6 +31,11 @@ public class ProductInfo extends AppCompatActivity {
         textNameInfo.setText(intentIN.getStringExtra("name"));
         textDescriptionInfo.setText(intentIN.getStringExtra("description"));
         textPriceInfo.setText(intentIN.getStringExtra("price"));
+
+        Glide.with(ProductInfo.this)
+                .load(intentIN.getStringExtra("image"))
+                .override(500, 500)
+                .into(imgInfo);
 
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override

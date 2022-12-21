@@ -6,35 +6,38 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="#C7E2F6"
     tools:context=".Login">
 
     <ImageView
         android:id="@+id/imageLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        tools:srcCompat="@drawable/btn_login" />
 
     <EditText
         android:id="@+id/editEmailLogin"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editPasswordLogin"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnLogin"
+        android:backgroundTint="#0E62A5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ingresar" />
+        android:text="@string/btn_login" />
 
     <Button
         android:id="@+id/btnLoginRegister"
+        android:backgroundTint="#0E62A5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registrarse" />
+        android:text="@string/btn_login_register" />
 </LinearLayout>

@@ -7,10 +7,10 @@ public class Branch {
     private String name;
     private String phone;
     private String image;
-    private String latitude;
-    private String longitude;
+    private Double latitude;
+    private Double longitude;
 
-    public Branch(String id, String name, String phone, String image, String latitude, String longitude) {
+    public Branch(String id, String name, String phone, String image, Double latitude, Double longitude) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -19,7 +19,7 @@ public class Branch {
         this.longitude = longitude;
     }
 
-    public Branch(String name, String phone, String image, String latitude, String longitude) {
+    public Branch(String name, String phone, String image, Double latitude, Double longitude) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.phone = phone;
@@ -60,19 +60,19 @@ public class Branch {
         this.image = image;
     }
 
-    public String getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 }

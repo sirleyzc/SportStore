@@ -22,39 +22,40 @@ public class DBFirebase {
     private FirebaseFirestore db;
 
     public DBFirebase() {
-        db = FirebaseFirestore.getInstance();
+        this.db =  FirebaseFirestore.getInstance();
     }
 
-    public void insertData(Product product) {
-        // Create a new user with a first and last name
+    public void insertProduct(Product product){
         Map<String, Object> prod = new HashMap<>();
         prod.put("id", product.getId());
         prod.put("name", product.getName());
         prod.put("description", product.getDescription());
         prod.put("price", product.getPrice());
         prod.put("image", product.getImage());
+
+        // Add a new document with a generated ID
         db.collection("products").add(prod);
     }
 
-    public void getData(ProductAdapter productAdapter) {
+    public void getProducts(ProductAdapter productAdapter, ArrayList<Product> list){
         db.collection("products")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            ArrayList<Product> list = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
                                 Product product = new Product(
                                         document.getData().get("id").toString(),
                                         document.getData().get("name").toString(),
                                         document.getData().get("description").toString(),
                                         document.getData().get("price").toString(),
                                         document.getData().get("image").toString()
+
                                 );
                                 list.add(product);
                             }
-                            productAdapter.setArrayProducts(list);
                             productAdapter.notifyDataSetChanged();
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
@@ -63,32 +64,28 @@ public class DBFirebase {
                 });
     }
 
-    public void deleteData(String id) {
+    public void deleteProduct(String id){
         db.collection("products").whereEqualTo("id", id)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            ArrayList<Product> list = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                document.getReference().delete();
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                documentSnapshot.getReference().delete();
                             }
                         }
                     }
                 });
     }
 
-    public void updateData(Product product) {
+    public void updateProduct(Product product){
         db.collection("products").whereEqualTo("id", product.getId())
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            ArrayList<Product> list = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                document.getReference().update(
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                documentSnapshot.getReference().update(
                                         "name", product.getName(),
                                         "description", product.getDescription(),
                                         "price", product.getPrice(),
@@ -98,6 +95,5 @@ public class DBFirebase {
                         }
                     }
                 });
-
     }
 }
